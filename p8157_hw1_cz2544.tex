@@ -1,0 +1,489 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={p8157\_LDA\_hw1},
+            pdfauthor={Chunxiao Zhai cz2544},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{p8157\_LDA\_hw1}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Chunxiao Zhai cz2544}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+Part B
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tlc =}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"TLC.dat"}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(tlc) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"trt"}\NormalTok{, }\StringTok{"week0"}\NormalTok{, }\StringTok{"week1"}\NormalTok{, }\StringTok{"week4"}\NormalTok{, }\StringTok{"week6"}\NormalTok{)}
+\KeywordTok{matplot}\NormalTok{(}\KeywordTok{t}\NormalTok{(tlc), }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in xy.coords(x, y, xlabel, ylabel, log = log): NAs introduced by
+## coercion
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+
+## Warning in xy.coords(x, y): NAs introduced by coercion
+\end{verbatim}
+
+\includegraphics[width=0.9\linewidth]{p8157_hw1_cz2544_files/figure-latex/EDA1_TLC-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tlc_df =}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(tlc) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}
+\NormalTok{    week0}\OperatorTok{:}\NormalTok{week6,}
+    \DataTypeTok{names_to =} \StringTok{"visit_time"}\NormalTok{, }
+    \DataTypeTok{values_to =} \StringTok{"serum_lead"}\NormalTok{) }
+   
+\NormalTok{tlc_p1 =}\StringTok{ }\NormalTok{tlc_df  }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{visit_time, }\DataTypeTok{y =}\NormalTok{ serum_lead, }\DataTypeTok{group =}\NormalTok{ id, }\DataTypeTok{color =}\NormalTok{ trt))}\OperatorTok{+}
+\StringTok{           }\KeywordTok{geom_line}\NormalTok{()}
+
+\NormalTok{tlc_p2 =}\StringTok{ }\NormalTok{tlc_df  }\OperatorTok{%>%}\StringTok{ }\KeywordTok{group_by}\NormalTok{(trt) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{visit_time, }\DataTypeTok{y =}\NormalTok{ serum_lead, }\DataTypeTok{color =}\NormalTok{ trt))}\OperatorTok{+}
+\StringTok{           }\KeywordTok{geom_violin}\NormalTok{()}
+
+\NormalTok{tlc_p1}\OperatorTok{+}\NormalTok{tlc_p2 }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.9\linewidth]{p8157_hw1_cz2544_files/figure-latex/EDA1_TLC-2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dental =}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"dental.dat"}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(dental) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"gender"}\NormalTok{, }\StringTok{"8"}\NormalTok{, }\StringTok{"10"}\NormalTok{, }\StringTok{"12"}\NormalTok{, }\StringTok{"14"}\NormalTok{)}
+\NormalTok{dtl_df =}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(dental) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}
+    \StringTok{"8"}\OperatorTok{:}\StringTok{"14"}\NormalTok{,}
+    \DataTypeTok{names_to =} \StringTok{"age"}\NormalTok{, }
+    \DataTypeTok{values_to =} \StringTok{"pt_pm_dis"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{age =} \KeywordTok{as.numeric}\NormalTok{(age)) }
+
+\NormalTok{dtl_p1 =}\StringTok{ }\NormalTok{dtl_df   }\OperatorTok{%>%}\StringTok{  }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{age, }\DataTypeTok{y =}\NormalTok{ pt_pm_dis, }\DataTypeTok{color =}\NormalTok{ gender))}\OperatorTok{+}
+\StringTok{           }\KeywordTok{geom_point}\NormalTok{()}
+   
+\NormalTok{dtl_p2 =}\StringTok{ }\NormalTok{dtl_df  }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{age, }\DataTypeTok{y =}\NormalTok{ pt_pm_dis, }\DataTypeTok{group =}\NormalTok{ id, }\DataTypeTok{color =}\NormalTok{ gender))}\OperatorTok{+}
+\StringTok{           }\KeywordTok{geom_line}\NormalTok{()}
+
+\NormalTok{dtl_mean =}\StringTok{ }\NormalTok{dtl_df }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{age=}\KeywordTok{as.factor}\NormalTok{(age)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(age,gender) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{grp_mean=}\KeywordTok{mean}\NormalTok{(pt_pm_dis)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ungroup}\NormalTok{()}
+\NormalTok{dtl_p3 =}\StringTok{ }\NormalTok{dtl_mean  }\OperatorTok{%>%}\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{id=}\KeywordTok{as.factor}\NormalTok{(id)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{age, }\DataTypeTok{y =}\NormalTok{ pt_pm_dis}\OperatorTok{-}\NormalTok{grp_mean,}\DataTypeTok{group =}\NormalTok{ id, }\DataTypeTok{color =}\NormalTok{ id))}\OperatorTok{+}
+\StringTok{           }\KeywordTok{geom_line}\NormalTok{()}\OperatorTok{+}\StringTok{ }\KeywordTok{facet_grid}\NormalTok{(}\OperatorTok{~}\NormalTok{gender) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{( }\DataTypeTok{title =} \StringTok{"tandarized growth line"}\NormalTok{ ) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\NormalTok{viridis}\OperatorTok{::}\KeywordTok{scale_color_viridis}\NormalTok{(}
+    \DataTypeTok{name =} \StringTok{"id"}\NormalTok{, }
+    \DataTypeTok{discrete =} \OtherTok{TRUE}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.key.size =} \KeywordTok{unit}\NormalTok{(.}\DecValTok{25}\NormalTok{, }\StringTok{"cm"}\NormalTok{))}\OperatorTok{+}
+\StringTok{  }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{col =} \KeywordTok{guide_legend}\NormalTok{(}\DataTypeTok{ncol=}\DecValTok{14}\NormalTok{))}
+
+
+\NormalTok{(dtl_p1}\OperatorTok{+}\NormalTok{dtl_p2)}\OperatorTok{/}\NormalTok{dtl_p3 }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.9\linewidth]{p8157_hw1_cz2544_files/figure-latex/EDA2_dental-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{zeb =}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"ZERBE2.DAT"}\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(zeb) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"grp"}\NormalTok{,}\StringTok{"id"}\NormalTok{, }\StringTok{"0"}\NormalTok{, }\StringTok{"0.5"}\NormalTok{, }\StringTok{"1"}\NormalTok{, }\StringTok{"1.5"}\NormalTok{,}\StringTok{"2"}\NormalTok{,}\StringTok{"3"}\NormalTok{)}
+
+\CommentTok{#EDA}
+\NormalTok{zeb_df =}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(zeb) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(}
+    \StringTok{"0"}\OperatorTok{:}\StringTok{"3"}\NormalTok{,}
+    \DataTypeTok{names_to =} \StringTok{"time"}\NormalTok{, }
+    \DataTypeTok{values_to =} \StringTok{"serum_pip"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{grp =} \KeywordTok{factor}\NormalTok{(grp, }\DataTypeTok{labels=}\KeywordTok{c}\NormalTok{(}\StringTok{"ctl"}\NormalTok{,}\StringTok{"ob"}\NormalTok{)))}
+
+\NormalTok{zeb_p1 =}\StringTok{ }\NormalTok{zeb_df   }\OperatorTok{%>%}\StringTok{  }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ time, }\DataTypeTok{y =}\NormalTok{ serum_pip, }\DataTypeTok{color =}\NormalTok{ grp))}\OperatorTok{+}
+\StringTok{           }\KeywordTok{geom_boxplot}\NormalTok{()}
+   
+\NormalTok{zeb_p2 =}\StringTok{ }\NormalTok{zeb_df   }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ time, }\DataTypeTok{y =}\NormalTok{ serum_pip, }\DataTypeTok{color =}\NormalTok{ grp,}\DataTypeTok{group =}\NormalTok{ id))}\OperatorTok{+}
+\StringTok{           }\KeywordTok{geom_line}\NormalTok{()}\OperatorTok{+}\StringTok{ }\KeywordTok{facet_grid}\NormalTok{(}\OperatorTok{~}\NormalTok{grp)}
+
+\CommentTok{# Hotelling test}
+\NormalTok{zeb_h01 =}\StringTok{ }\KeywordTok{cbind}\NormalTok{(zeb[}\DecValTok{1}\NormalTok{],zeb[}\DecValTok{3}\OperatorTok{:}\DecValTok{8}\NormalTok{])}
+\KeywordTok{colnames}\NormalTok{(zeb_h01) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"grp"}\NormalTok{, }\StringTok{"t0"}\NormalTok{, }\StringTok{"t0.5"}\NormalTok{, }\StringTok{"t1"}\NormalTok{, }\StringTok{"t1.5"}\NormalTok{,}\StringTok{"t2"}\NormalTok{,}\StringTok{"t3"}\NormalTok{)}
+\NormalTok{fit_a =}\StringTok{ }\KeywordTok{hotelling.test}\NormalTok{(.}\OperatorTok{~}\NormalTok{grp, }\DataTypeTok{data =}\NormalTok{ zeb_h01)}
+\NormalTok{fit_a}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Test stat:  8.5531 
+## Numerator df:  6 
+## Denominator df:  26 
+## P-value:  3.495e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# reject H0 (a) at 0.05 alpha level}
+
+\NormalTok{zeb_h02 =}\StringTok{ }\NormalTok{zeb_h01 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{it1=}\NormalTok{t0}\FloatTok{.5}\OperatorTok{-}\NormalTok{t0, }\DataTypeTok{it2=}\NormalTok{t1}\OperatorTok{-}\NormalTok{t0}\FloatTok{.5}\NormalTok{, }
+                             \DataTypeTok{it3=}\NormalTok{t1}\FloatTok{.5}\OperatorTok{-}\NormalTok{t1, }\DataTypeTok{it4=}\NormalTok{t2}\OperatorTok{-}\NormalTok{t1}\FloatTok{.5}\NormalTok{, }
+                             \DataTypeTok{it5=}\NormalTok{t3}\OperatorTok{-}\NormalTok{t2) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(grp,it1}\OperatorTok{:}\NormalTok{it5)}
+\NormalTok{fit_b =}\StringTok{ }\KeywordTok{hotelling.test}\NormalTok{(.}\OperatorTok{~}\NormalTok{grp, }\DataTypeTok{data =}\NormalTok{ zeb_h02)}
+\NormalTok{fit_b}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Test stat:  8.1805 
+## Numerator df:  5 
+## Denominator df:  27 
+## P-value:  8.344e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# reject H0 (b) at 0.05 alpha level}
+
+\NormalTok{fit_c =}\StringTok{ }\KeywordTok{hotelling.test}\NormalTok{(it5}\OperatorTok{~}\NormalTok{grp, }\DataTypeTok{data =}\NormalTok{ zeb_h02)}
+\NormalTok{fit_c}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Test stat:  0.41711 
+## Numerator df:  1 
+## Denominator df:  31 
+## P-value:  0.5231
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# can not reject H0 (a) at 0.05 alpha level}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}

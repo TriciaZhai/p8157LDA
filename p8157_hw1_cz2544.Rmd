@@ -1,0 +1,121 @@
+---
+title: "p8157_LDA_hw1"
+author: Chunxiao Zhai cz2544
+output: word_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(ggridges)
+library(patchwork)
+library(Hotelling)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%")
+theme_set(theme_bw() + theme(legend.position = "bottom"))
+```
+
+Part B
+```{r EDA1_TLC, warning=FALSE}
+tlc = read.table("TLC.dat")
+colnames(tlc) = c("id", "trt", "week0", "week1", "week4", "week6")
+# matplot(t(tlc), type = "l")
+tlc_df = as.data.frame(tlc) %>% 
+  pivot_longer(
+    week0:week6,
+    names_to = "visit_time", 
+    values_to = "serum_lead") 
+   
+tlc_p1 = tlc_df  %>% 
+  ggplot( aes(x=visit_time, y = serum_lead, group = id, color = trt))+
+           geom_line()
+
+tlc_p2 = tlc_df  %>% group_by(trt) %>% 
+  ggplot( aes(x=visit_time, y = serum_lead, color = trt))+
+           geom_violin()
+
+tlc_p1+tlc_p2 
+```
+
+```{r EDA2_dental}
+dental = read.table("dental.dat")
+colnames(dental) = c("id", "gender", "8", "10", "12", "14")
+dtl_df = as.data.frame(dental) %>% 
+  pivot_longer(
+    "8":"14",
+    names_to = "age", 
+    values_to = "pt_pm_dis") %>% 
+  mutate(age = as.numeric(age)) 
+
+dtl_p1 = dtl_df   %>%  
+  ggplot( aes(x=age, y = pt_pm_dis, color = gender))+
+           geom_point()
+   
+dtl_p2 = dtl_df  %>% 
+  ggplot( aes(x=age, y = pt_pm_dis, group = id, color = gender))+
+           geom_line()
+
+dtl_mean = dtl_df %>% mutate(age=as.factor(age)) %>% 
+  group_by(age,gender) %>% mutate(grp_mean=mean(pt_pm_dis)) %>% ungroup()
+dtl_p3 = dtl_mean  %>%  mutate(id=as.factor(id)) %>% 
+  ggplot( aes(x=age, y = pt_pm_dis-grp_mean,group = id, color = id))+
+           geom_line()+ facet_grid(~gender) +
+  labs( title = "tandarized growth line" ) + 
+  viridis::scale_color_viridis(
+    name = "id", 
+    discrete = TRUE)+
+  theme(legend.key.size = unit(.25, "cm"))+
+  guides(col = guide_legend(ncol=14))
+
+
+dtl_p1+dtl_p2
+dtl_p3 
+```
+
+```{r EDA3_ZERBE2, message=TRUE}
+zeb = read.table("ZERBE2.DAT")
+colnames(zeb) = c("grp","id", "0", "0.5", "1", "1.5","2","3")
+
+#EDA
+zeb_df = as.data.frame(zeb) %>% 
+  pivot_longer(
+    "0":"3",
+    names_to = "time", 
+    values_to = "serum_pip") %>% 
+  mutate(grp = factor(grp, labels=c("ctl","ob")))
+
+zeb_p1 = zeb_df   %>%  
+  ggplot( aes(x = time, y = serum_pip, color = grp))+
+           geom_boxplot()
+   
+zeb_p2 = zeb_df   %>% 
+  ggplot( aes(x = time, y = serum_pip, color = grp,group = id))+
+           geom_line()+ facet_grid(~grp)
+
+# Hotelling test
+zeb_h01 = cbind(zeb[1],zeb[3:8])
+colnames(zeb_h01) = c("grp", "t0", "t0.5", "t1", "t1.5","t2","t3")
+fit_a = hotelling.test(.~grp, data = zeb_h01)
+fit_a
+# reject H0 (a) at 0.05 alpha level
+
+zeb_h02 = zeb_h01 %>% mutate(it1=t0.5-t0, it2=t1-t0.5, 
+                             it3=t1.5-t1, it4=t2-t1.5, 
+                             it5=t3-t2) %>% select(grp,it1:it5)
+fit_b = hotelling.test(.~grp, data = zeb_h02)
+fit_b
+# reject H0 (b) at 0.05 alpha level
+
+fit_c = hotelling.test(it5~grp, data = zeb_h02)
+fit_c
+
+# can not reject H0 (a) at 0.05 alpha level
+```
+
+```{r}
+
+```
+
