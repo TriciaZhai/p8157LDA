@@ -10,7 +10,8 @@ library(ggplot2)
 library(ggridges)
 library(patchwork)
 library(Hotelling)
-
+library(psych)
+library(languageR)
 knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = .6,
@@ -92,7 +93,7 @@ zeb_p1 = zeb_df   %>%
            geom_boxplot()
    
 zeb_p2 = zeb_df   %>% 
-  ggplot( aes(x = time, y = serum_pip, color = grp,group = id))+
+  ggplot( aes(x = time, y = serum_pip, color = grp, group = id))+
            geom_line()+ facet_grid(~grp)
 
 # Hotelling test
@@ -113,9 +114,25 @@ fit_c = hotelling.test(it5~grp, data = zeb_h02)
 fit_c
 
 # can not reject H0 (a) at 0.05 alpha level
+
+# EDA
+mu = apply(zeb[3:8],2,mean)
+res = sweep(zeb[3:8],2,mu)
+cols = rep(1:33,rep(6,33))
+pairs.panels(res,lm=TRUE)
+
+# rev vs mean plot
+plot(as.vector(t(res)), col=cols, pch=19)
+
+# rev vs median plot
+mpolish = medpolish(zeb[3:8])
+plot(as.vector(t(mpolish$residuals)), col=cols,pch=19)
+
+# subject vs median
+plot(mpolish$row, col=zeb$grp)
+
+# ACF
+acf(as.vector((t(mpolish$residuals))))
 ```
 
-```{r}
-
-```
 
